@@ -3,7 +3,7 @@
 // Name:
 // Date:
 // ============================================================
-public class LinkedList {
+public class LinkedList{
     // ----- Node class (inner) -----
     private static class Node {
         String data;
