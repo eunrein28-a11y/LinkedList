@@ -1,6 +1,6 @@
 package Day2;
 
-public class LinkedList {
+public class LinkedList{
     private static class Node {
         String data;
         Node next;
