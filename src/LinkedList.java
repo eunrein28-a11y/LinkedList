@@ -31,6 +31,7 @@ public class LinkedList{
         Node newNode = new Node(data);
         if(head == null){
             head = newNode;
+            size++;
             return;
         }
         newNode.next = null;
@@ -59,6 +60,7 @@ public class LinkedList{
     public boolean isEmpty() {
         return size == 0;
     }
+
     // Return a string representation: [a -> b -> c -> null]
     public String toString() {
         Node n = head;
@@ -73,15 +75,27 @@ public class LinkedList{
 // CHALLENGE 1A: Reverse the linked list in place
 // ============================================================
     public void reverse() {
-// TODO: implement
+        Node prev = null;
+        Node curr = head;
+        Node next;
+        while(curr != null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
     }
     // ============================================================
 // CHALLENGE 1B: Return true if the list reads the same
 // forwards and backwards (palindrome check)
 // ============================================================
     public boolean isPalindrome() {
-// TODO: implement
-        return false;
+        String forwards = this.toString();
+        reverse();
+        String backwards = this.toString();
+        reverse();
+        return forwards.equals(backwards);
     }
     // ============================================================
 // TESTS — run main() to check your implementation
@@ -89,60 +103,101 @@ public class LinkedList{
     public static void main(String[] args) {
         System.out.println("===== BASIC OPERATIONS =====");
         LinkedList list = new LinkedList();
-        assert list.isEmpty() : "FAIL: new list should be empty";
-        assert list.size() == 0 : "FAIL: new list size should be 0";
-        System.out.println("PASS: isEmpty and size on empty list");
+        if (!(list.isEmpty())) {
+            System.out.println("FAIL: new list should be empty");
+        }
+        if (!(list.size() == 0)) {
+            System.out.println("FAIL: new list size should be 0");
+        } else {
+            System.out.println("PASS: isEmpty and size on empty list");
+        }
         list.addLast("a");
         list.addLast("b");
         list.addLast("c");
-        assert list.size() == 3 : "FAIL: size should be 3";
-        assert list.toString().equals("[a -> b -> c -> null]") : "FAIL: toString wrong after addLast. Got: " + list.toString();
-        System.out.println("PASS: addLast and toString");
+        if (!(list.size() == 3)) {
+            System.out.println("FAIL: size should be 3");
+        }
+        if (!(list.toString().equals("[a -> b -> c -> null]"))) {
+            System.out.println("FAIL: toString wrong after addLast. Got: "
+                    + list.toString());
+        } else {
+            System.out.println("PASS: addLast and toString");
+        }
         list.addFirst("z");
-        assert list.toString().equals("[z -> a -> b -> c -> null]") :
-                "FAIL: toString wrong after addFirst. Got: " + list.toString();
-        System.out.println("PASS: addFirst");
+        if (!(list.toString().equals("[z -> a -> b -> c -> null]"))) {
+            System.out.println("FAIL: toString wrong after addFirst. Got: " + list.toString());
+        } else {
+            System.out.println("PASS: addFirst");
+        }
         String removed = list.removeFirst();
-        assert removed.equals("z") : "FAIL: removeFirst should return 'z', got: " + removed;
-        assert list.size() == 3 : "FAIL: size should be 3 after removeFirst";
-        System.out.println("PASS: removeFirst");
+        if (!(removed.equals("z"))) {
+            System.out.println("FAIL: removeFirst should return 'z', got: " + removed);
+        }
+        if (!(list.size() == 3)) {
+            System.out.println("FAIL: size should be 3 after removeFirst");
+        } else {
+            System.out.println("PASS: removeFirst");
+        }
         System.out.println("\n===== CHALLENGE 1A: REVERSE =====");
         LinkedList rev = new LinkedList();
         rev.addLast("1");
         rev.addLast("2");
         rev.addLast("3");
         rev.reverse();
-        assert rev.toString().equals("[3 -> 2 -> 1 -> null]") : "FAIL: reverse wrong. Got: " + rev.toString();
-        System.out.println("PASS: reverse [1->2->3] => [3->2->1]");
+        if (!(rev.toString().equals("[3 -> 2 -> 1 -> null]"))) {
+            System.out.println("FAIL: reverse wrong. Got: " +
+                    rev.toString());
+        } else {
+            System.out.println("PASS: reverse [1->2->3] => [3->2->1]");
+        }
         LinkedList single = new LinkedList();
         single.addLast("x");
         single.reverse();
-        assert single.toString().equals("[x -> null]") : "FAIL: reverse of single element wrong";
-        System.out.println("PASS: reverse single element");
+        if (!(single.toString().equals("[x -> null]"))) {
+            System.out.println("FAIL: reverse of single element wrong");
+        } else {
+            System.out.println("PASS: reverse single element");
+        }
         LinkedList empty = new LinkedList();
         empty.reverse();
-        assert empty.isEmpty() : "FAIL: reverse of empty list should stay empty";
-        System.out.println("PASS: reverse empty list");
+        if (!(empty.isEmpty())) {
+            System.out.println("FAIL: reverse of empty list should stay empty");
+        } else {
+            System.out.println("PASS: reverse empty list");
+        }
         System.out.println("\n===== CHALLENGE 1B: PALINDROME =====");
         LinkedList pal1 = new LinkedList();
         for (char c : "racecar".toCharArray())
             pal1.addLast(String.valueOf(c));
-        assert pal1.isPalindrome() : "FAIL: 'racecar' should be a palindrome";
-        System.out.println("PASS: 'racecar' is a palindrome");
+        if (!(pal1.isPalindrome())) {
+            System.out.println("FAIL: 'racecar' should be a palindrome");
+        } else {
+            System.out.println("PASS: 'racecar' is a palindrome");
+        }
         LinkedList pal2 = new LinkedList();
         for (char c : "hello".toCharArray())
             pal2.addLast(String.valueOf(c));
-        assert !pal2.isPalindrome() : "FAIL: 'hello' should NOT be a palindrome";
-        System.out.println("PASS: 'hello' is not a palindrome");
+        if (!(!pal2.isPalindrome())) {
+            System.out.println("FAIL: 'hello' should NOT be a palindrome");
+        } else {
+            System.out.println("PASS: 'hello' is not a palindrome");
+        }
         LinkedList pal3 = new LinkedList();
         for (char c : "a".toCharArray()) pal3.addLast(String.valueOf(c));
-        assert pal3.isPalindrome() : "FAIL: single character should be a palindrome";
-        System.out.println("PASS: single character is a palindrome");
+        if (!(pal3.isPalindrome())) {
+            System.out.println("FAIL: single character should be a palindrome");
+        } else {
+            System.out.println("PASS: single character is a palindrome");
+        }
         LinkedList pal4 = new LinkedList();
         for (char c : "abba".toCharArray())
             pal4.addLast(String.valueOf(c));
-        assert pal4.isPalindrome() : "FAIL: 'abba' should be a palindrome";
-        System.out.println("PASS: 'abba' is a palindrome");
+        if (!(pal4.isPalindrome())) {
+            System.out.println("FAIL: 'abba' should be a palindrome");
+        } else {
+            System.out.println("PASS: 'abba' is a palindrome");
+        }
         System.out.println("\nAll Day 1 tests passed!");
     }
 }
+
