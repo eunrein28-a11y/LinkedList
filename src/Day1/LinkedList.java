@@ -1,3 +1,5 @@
+package Day1;
+
 // ============================================================
 // DAY 1 STARTER CODE — Singly Linked List
 // Name:
