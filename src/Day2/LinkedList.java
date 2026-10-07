@@ -59,7 +59,15 @@ public class LinkedList{
 // Use Floyd's Tortoise and Hare algorithm (two pointers).
 // ============================================================
     public boolean hasCycle() {
-// TODO: implement
+        Node tortoise = head;
+        Node hare = head;
+        while(tortoise != null && hare != null && hare.next != null){
+            tortoise = tortoise.next;
+            hare = hare.next.next;
+            if(tortoise.equals(hare)){
+                return true;
+            }
+        }
         return false;
     }
     // ============================================================
@@ -70,15 +78,36 @@ public class LinkedList{
 // Use two pointers: one moves 1 step, one moves 2 steps.
 // ============================================================
     public String findMiddle() {
-// TODO: implement
-        return null;
+        Node tortoise = head;
+        Node hare = head;
+        while(hare != null && hare.next != null && hare.next.next != null){
+            hare = hare.next.next;
+            tortoise = tortoise.next;
+        }
+        if(hare.next == null) {
+            return tortoise.data;
+        }
+        return tortoise.next.data;
     }
     // ============================================================
 // CHALLENGE 2C (BONUS): If a cycle exists, return the node
 // data where the cycle begins. Return null if no cycle.
 // ============================================================
     public String findCycleStart() {
-// TODO: implement
+        Node tortoise = head;
+        Node hare = head;
+        while(tortoise != null && hare != null && hare.next != null){
+            tortoise = tortoise.next;
+            hare = hare.next.next;
+            if(tortoise.equals(hare)){
+                Node tortoise2 = head;
+                while(!tortoise.equals(tortoise2)){
+                    tortoise = tortoise.next;
+                    tortoise2 = tortoise2.next;
+                }
+                return tortoise.data;
+            }
+        }
         return null;
     }
     // Helper: creates a cycle for testing purposes only
