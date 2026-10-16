@@ -20,17 +20,34 @@ public class CircularQueue {
     }
     // Add to the back of the queue
     public void enqueue(int data) {
-// TODO: implement
+        if(last == null){
+            last = new Node(data);
+            size++;
+            last.next = last;
+            return;
+        }
+        Node front = last.next;
+        last.next = new Node(data);
+        last = last.next;
+        last.next = front;
+        size++;
     }
     // Remove and return from the front of the queue
     public int dequeue() {
-// TODO: implement
-        return -1;
+        if(last.next == last){
+            Node removed = last.next;
+            last = null;
+            size--;
+            return removed.data;
+        }
+        Node removed = last.next;
+        last.next = last.next.next;
+        size--;
+        return removed.data;
     }
     // Return the front value without removing it
     public int peek() {
-// TODO: implement
-        return -1;
+        return last.next.data;
     }
     public boolean isEmpty() {
         return size == 0;
